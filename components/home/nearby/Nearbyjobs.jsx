@@ -38,11 +38,7 @@ const Nearbyjobs = () => {
           <Text>Somethin Went Wrong</Text>
         ) : (
           data.map((job) => (
-            <NearbyJobCard
-              job={job}
-              key={`nearby-job-${job.job_id}`}
-              handleCardPress={navigation.navigate("PopularJobs")}
-            />
+            <NearbyJobCard job={job} key={`nearby-job-${job.job_id}`} />
           ))
         )}
       </View>

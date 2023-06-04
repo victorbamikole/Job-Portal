@@ -3,10 +3,17 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./nearbyjobcard.style";
 import checkImageURL from "../../../../utils";
+import { useNavigation } from "@react-navigation/native";
 
-const NearbyJobCard = ({ job, handleCardPress }) => {
+const NearbyJobCard = ({ job }) => {
+  const navigation = useNavigation();
+
+  function jobHandler() {
+    navigation.navigate("JobDetails", { jobId: job.job_id });
+  }
+
   return (
-    <TouchableOpacity style={styles.container} onPress={handleCardPress}>
+    <TouchableOpacity style={styles.container} onPress={jobHandler}>
       <TouchableOpacity style={styles.logoContainer}>
         <Image
           resizeMode="contain"

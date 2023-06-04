@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import React, { useState, useCallback } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useState, useCallback, useEffect } from "react";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "./components/home/welcome/Welcome";
 import { StatusBar } from "expo-status-bar";
@@ -8,7 +8,10 @@ import { COLORS, icons, images } from "./constants";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import ScreenHeaderBtn from "./components/common/header/ScreenHeaderBtn";
-import Popularjobs from "./components/home/popular/Popularjobs";
+import JobDetails from "./components/jobdetails/JobDetails";
+import { navigationRef } from "./RootNavigation";
+import * as RootNavigation from "./RootNavigation.js";
+import JobSearch from "./components/home/search/JobSearch";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +36,7 @@ export default function App() {
     <>
       <StatusBar style="dark" />
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
             <Stack.Screen
               name="Home"
@@ -50,8 +53,40 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="PopularJobs"
-              component={Popularjobs}
+              name="JobDetails"
+              component={JobDetails}
+              options={{
+                headerStyle: { backgroundColor: COLORS.lightWhite },
+                headerShadowVisible: false,
+                headerBackVisible: false,
+                headerLeft: () => (
+                  <ScreenHeaderBtn
+                    iconUrl={icons.left}
+                    dimension={"60%"}
+                    handlePress={() => RootNavigation.navigate("Home")}
+                  />
+                ),
+                headerRight: () => (
+                  <ScreenHeaderBtn iconUrl={icons.share} dimension={"60%"} />
+                ),
+                headerTitle: "",
+              }}
+            />
+            <Stack.Screen
+              name="JobSearch"
+              component={JobSearch}
+              options={{
+                headerStyle: { backgroundColor: COLORS.lightWhite },
+                headerShadowVisible: false,
+                headerLeft: () => (
+                  <ScreenHeaderBtn
+                    iconUrl={icons.left}
+                    dimension="60%"
+                    handlePress={() => RootNavigation.navigate("Home")}
+                  />
+                ),
+                headerTitle: "",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

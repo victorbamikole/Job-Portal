@@ -16,15 +16,13 @@ import { useNavigation } from "@react-navigation/native";
 import useFetch from "../../../hook/useFetch";
 
 const Popularjobs = () => {
-  const navigation = useNavigation();
-
   const { data, isLoading, error } = useFetch("search", {
     query: "react developer",
     num_pages: 1,
   });
 
   function renderItem({ item }) {
-    return (<PopularJobCard item={item} />)
+    return <PopularJobCard item={item} id={item.jobs_id} />;
   }
 
   return (
@@ -47,6 +45,7 @@ const Popularjobs = () => {
             keyExtractor={(item) => item.jobs_id}
             contentContainerStyle={{ columnGap: SIZES.small }}
             horizontal
+            key={(item) => item.jobs_id}
           />
         )}
       </View>

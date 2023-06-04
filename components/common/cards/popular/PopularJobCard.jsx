@@ -5,11 +5,11 @@ import styles from "./popularjobcard.style";
 import checkImageURL from "../../../../utils";
 import { useNavigation } from "@react-navigation/native";
 
-const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
+const PopularJobCard = ({ item, selectedJob }) => {
   const navigation = useNavigation();
 
   function jobHandler() {
-    navigation.navigate("PopularJobs", {});
+    navigation.navigate("JobDetails", { jobId: item.job_id });
   }
   return (
     <TouchableOpacity
@@ -25,6 +25,7 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
               ? item.employer_logo
               : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
           }}
+          onPress={jobHandler}
         />
       </TouchableOpacity>
       <Text style={styles.companyName} numberOfLines={1}>

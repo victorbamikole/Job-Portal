@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { View, Text } from "react-native";
 
@@ -7,12 +7,25 @@ import { SIZES } from "../../../constants";
 import Popularjobs from "../popular/Popularjobs";
 import Nearbyjobs from "../nearby/Nearbyjobs";
 import Home from "../popular/Homemain";
+import { useNavigation } from "@react-navigation/native";
 
 const Welcome = ({ onLayout }) => {
+  const navigation = useNavigation();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  function jobHandler() {
+    if (searchTerm) {
+      navigation.navigate("JobSearch", { searchText: searchTerm });
+    }
+  }
   return (
     <ScrollView showsVerticalScrollIndicator={false} onLayout={onLayout}>
       <View style={styles.view}>
-        <Home />
+        <Home
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          handleClick={jobHandler}
+        />
         <Popularjobs />
         <Nearbyjobs />
       </View>
